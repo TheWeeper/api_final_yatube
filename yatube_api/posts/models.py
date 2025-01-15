@@ -41,5 +41,17 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='follower')
-    following = models.ManyToManyField(User)
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        verbose_name='Подписчик',
+    )
+    following = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='followers',
+        verbose_name='Автор',
+    )
+
+    class Meta:
+        unique_together = ('user', 'following')
